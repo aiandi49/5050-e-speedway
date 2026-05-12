@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5050 &amp; 5056 E Speedway Blvd — PICOR | Cushman &amp; Wakefield</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0c0d0f;
+    --surface:   #121416;
+    --card:      #171a1f;
+    --border:    #242830;
+    --accent:    #3b8fd4;
+    --accent2:   #6db3e8;
+    --text:      #e6e9f0;
+    --muted:     #6b7280;
+    --dim:       #9ca3af;
+    --red:       #e05c3a;
+    --green:     #4ade80;
+    --orange:    #f59e0b;
+    --blue:      #5b9bd5;
+    --purple:    #a78bfa;
+    --radius:    12px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* ── LOADING BAR ── */
+  .media-loading-bar { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: var(--border); z-index: 1000; }
+  .media-loading-bar .mlb-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.4s ease; }
+
+  /* ── HEADER ── */
+  header {
+    position: relative; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 40px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(12,13,15,0.97);
+    backdrop-filter: blur(12px);
+  }
+
+  .logo-block { display: flex; align-items: center; gap: 14px; }
+  .logo-pill { background: var(--accent); color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 2px; padding: 5px 12px; border-radius: 4px; }
+  .logo-name { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; }
+
+  .header-badge { display: flex; align-items: center; gap: 8px; background: rgba(59,143,212,0.12); border: 1px solid rgba(59,143,212,0.3); border-radius: 20px; padding: 6px 16px; font-size: 12px; color: var(--accent); font-family: 'DM Mono', monospace; letter-spacing: 1px; }
+  .pulse-dot { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
+
+  /* ── HERO ── */
+  .hero-band {
+    position: relative; z-index: 5;
+    padding: 56px 40px 48px;
+    border-bottom: 1px solid var(--border);
+    max-width: 1400px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: end; gap: 40px;
+  }
+  .hero-band::after { content: ''; position: absolute; bottom: 0; left: 40px; right: 40px; height: 1px; background: linear-gradient(90deg, var(--accent) 0%, transparent 60%); }
+
+  .address-super { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .address-main { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px,5vw,68px); line-height: 0.95; letter-spacing: 1px; color: var(--text); }
+  .address-main span { color: var(--accent); }
+  .address-sub { margin-top: 12px; font-size: 14px; color: var(--dim); letter-spacing: 1px; }
+
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; border: 1px solid; }
+  .tag-sale { border-color: var(--accent); color: var(--accent); }
+  .tag-lease { border-color: var(--blue); color: var(--blue); }
+  .tag-zone { border-color: var(--red); color: var(--red); }
+  .tag-corner { border-color: var(--orange); color: var(--orange); }
+
+  .hero-stats { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+  .stat-chip { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+  .stat-chip .val { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--accent2); line-height: 1; }
+  .stat-chip .lbl { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .divider-h { width: 1px; height: 30px; background: var(--border); align-self: center; }
+
+  /* ── STATS BANNER ── */
+  .stats-banner {
+    position: relative; z-index: 5;
+    background: linear-gradient(90deg, rgba(59,143,212,0.06) 0%, transparent 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    max-width: 1400px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(5,1fr);
+  }
+  .stats-item { padding: 18px 24px; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 3px; }
+  .stats-item:first-child { padding-left: 0; }
+  .stats-item:last-child { border-right: none; }
+  .stats-item .si-lbl { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .stats-item .si-val { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--accent2); line-height: 1; }
+  .stats-item .si-sub { font-size: 11px; color: var(--dim); }
+
+  /* ── MAIN ── */
+  main { position: relative; z-index: 5; max-width: 1400px; margin: 0 auto; padding: 40px 40px 80px; display: flex; flex-direction: column; gap: 0; }
+
+  /* ── SECTION LABELS ── */
+  .section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ── IMAGE CARDS ── */
+  .image-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; }
+  .img-card { position: relative; border-radius: var(--radius); overflow: hidden; background: var(--card); border: 1px solid var(--border); aspect-ratio: 16/9; cursor: pointer; transition: border-color 0.2s, transform 0.2s; }
+  .img-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .img-card.wide { grid-column: 1 / -1; aspect-ratio: 21/9; }
+
+  /* ── LIGHTBOX ── */
+  .lightbox { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; padding: 20px; }
+  .lightbox.active { display: flex; }
+  .lightbox-inner { position: relative; max-width: 95vw; max-height: 92vh; display: flex; align-items: center; justify-content: center; }
+  .lightbox-inner img { max-width: 95vw; max-height: 88vh; object-fit: contain; border-radius: 8px; box-shadow: 0 40px 120px rgba(0,0,0,0.8); }
+  .lightbox-close { position: fixed; top: 20px; right: 28px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 22px; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; z-index: 10001; }
+  .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+  .lightbox-prev, .lightbox-next { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 20px; width: 48px; height: 48px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; z-index: 10001; }
+  .lightbox-prev { left: 16px; }
+  .lightbox-next { right: 16px; }
+  .lightbox-prev:hover, .lightbox-next:hover { background: rgba(59,143,212,0.5); }
+  .lightbox-caption { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(12,13,15,0.85); border: 1px solid var(--border); border-radius: 20px; padding: 6px 18px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--dim); letter-spacing: 1.5px; white-space: nowrap; }
+  .lightbox-counter { position: fixed; top: 24px; left: 50%; transform: translateX(-50%); font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 2px; }
+
+  /* Image badges */
+  .img-label-badge { position: absolute; top: 10px; left: 10px; background: rgba(12,13,15,0.82); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 4px 10px; font-family: 'DM Mono', monospace; font-size: 9px; color: #e6e9f0; letter-spacing: 1.5px; backdrop-filter: blur(6px); z-index: 5; text-transform: uppercase; }
+  .img-label-badge.accent { border-color: rgba(59,143,212,0.4); color: var(--accent); }
+  .zoom-hint { position: absolute; bottom: 10px; right: 10px; background: rgba(12,13,15,0.75); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 4px 10px; font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.5); letter-spacing: 1.5px; backdrop-filter: blur(6px); z-index: 5; opacity: 0; transition: opacity 0.2s; }
+  .img-card:hover .zoom-hint { opacity: 1; }
+
+  /* Real images inside cards */
+  .img-card img.real-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Placeholder */
+  .img-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: linear-gradient(135deg, #111316 0%, #16191e 100%); }
+  .img-placeholder .ph-icon { width: 48px; height: 48px; border: 2px dashed var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 20px; }
+  .img-placeholder .ph-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-align: center; padding: 0 20px; }
+  .img-placeholder .ph-tag { font-size: 9px; padding: 3px 8px; border-radius: 3px; background: rgba(59,143,212,0.1); border: 1px solid rgba(59,143,212,0.2); color: var(--accent); letter-spacing: 1px; font-family: 'DM Mono', monospace; }
+
+  /* ── 3-COL GRID ── */
+  .image-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+
+  /* ── SITE PLAN GRID ── */
+  .site-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; }
+  .site-plan-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .sp-header { padding: 12px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .sp-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--text); }
+  .sp-size { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 1px; }
+  .sp-placeholder { aspect-ratio: 3/2; background: linear-gradient(135deg, #0e1014 0%, #13161b 100%); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px; }
+
+  /* ── INFO GRID ── */
+  .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+  .info-card { background: var(--card); padding: 28px 32px; border-radius: var(--radius); border: 1px solid var(--border); }
+  .info-card.span2 { grid-column: span 2; }
+  .info-card.span3 { grid-column: span 3; }
+  .info-card .ic-title { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; margin-bottom: 20px; }
+
+  /* Detail table */
+  .detail-table { display: flex; flex-direction: column; }
+  .detail-row { display: flex; align-items: baseline; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid rgba(36,40,48,0.8); gap: 12px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-row .dr-k { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; flex-shrink: 0; }
+  .detail-row .dr-v { font-size: 12px; color: var(--text); font-weight: 500; text-align: right; }
+  .detail-row .dr-v.highlight { color: var(--accent2); font-family: 'Bebas Neue', sans-serif; font-size: 18px; }
+
+  /* Traffic */
+  .traffic-big { text-align: center; padding: 16px 0; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  .traffic-big .tb-num { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--accent2); line-height: 1; letter-spacing: -1px; }
+  .traffic-big .tb-lbl { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .dual-traffic { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; text-align: center; padding: 16px 0; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  .dt-item .dt-rd { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+  .dt-item .dt-num { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--accent2); line-height: 1; }
+  .dt-item .dt-lbl { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+
+  /* Key features */
+  .feature-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
+  .feature-item { display: flex; align-items: flex-start; gap: 12px; font-size: 12px; color: var(--dim); line-height: 1.55; padding: 8px 0; border-bottom: 1px solid rgba(36,40,48,0.5); }
+  .feature-item:nth-last-child(-n+2) { border-bottom: none; }
+  .feature-item .fi-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 7px; }
+
+  /* Surrounding tenants */
+  .tenant-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tenant-pill { font-size: 11px; color: var(--dim); background: var(--card); border: 1px solid var(--border); padding: 4px 10px; border-radius: 20px; font-family: 'DM Mono', monospace; letter-spacing: 0.5px; }
+
+  /* Mkt stats */
+  .mkt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 8px; }
+  .mkt-item { display: flex; flex-direction: column; gap: 2px; }
+  .mkt-item .mi-val { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--accent2); line-height: 1; }
+  .mkt-item .mi-lbl { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; line-height: 1.3; margin-top: 2px; }
+
+  /* Contact strip */
+  .contact-strip { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 40px; }
+  .agent-block { display: flex; align-items: center; gap: 16px; }
+  .agent-avatar { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #fff; flex-shrink: 0; }
+  .agent-bio { display: flex; flex-direction: column; gap: 4px; }
+  .agent-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--text); line-height: 1; letter-spacing: 0.5px; }
+  .agent-title { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; line-height: 1.5; }
+  .contact-links { display: flex; gap: 0; align-items: center; justify-content: center; }
+  .contact-link { display: flex; flex-direction: column; gap: 5px; padding: 0 36px; border-right: 1px solid var(--border); text-decoration: none; }
+  .contact-link:first-child { padding-left: 0; }
+  .contact-link:last-child { border-right: none; }
+  .contact-link .cl-label { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .contact-link .cl-val { font-size: 15px; color: var(--text); font-weight: 500; white-space: nowrap; transition: color 0.2s; }
+  .contact-link:hover .cl-val { color: var(--accent); }
+  .cta-btn { padding: 16px 36px; background: var(--accent); color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; border-radius: 8px; text-decoration: none; transition: background 0.2s, transform 0.15s; white-space: nowrap; flex-shrink: 0; display: inline-block; font-weight: bold; }
+  .cta-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  /* HBU Section */
+  .hbu-full-width { width: 100%; background: var(--bg); padding: 0 40px 60px; }
+  .hbu-full-inner { max-width: 1400px; margin: 0 auto; }
+  .hbu-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
+  .hbu-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color 0.2s, transform 0.2s; position: relative; display: flex; flex-direction: column; }
+  .hbu-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .hbu-card.top-pick { border-color: rgba(59,143,212,0.4); }
+  .hbu-card.top-pick::before { content: '★ TOP PICK'; position: absolute; top: 10px; right: 10px; background: var(--accent); color: #fff; font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 1.5px; padding: 3px 7px; border-radius: 3px; z-index: 5; }
+  .hbu-render { position: relative; aspect-ratio: 16/7; min-height: unset; background: var(--surface); cursor: pointer; }
+  .hbu-render img.real-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hbu-info { padding: 28px 32px; display: flex; flex-direction: column; justify-content: flex-start; gap: 0; border-bottom: 1px solid var(--border); }
+  .hbu-number { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
+  .hbu-title { font-family: 'Bebas Neue', sans-serif; font-size: 42px; line-height: 0.95; letter-spacing: 0.5px; color: var(--text); margin-bottom: 14px; }
+  .hbu-desc { font-size: 12px; color: var(--dim); line-height: 1.6; margin-bottom: 20px; }
+  .hbu-metrics { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); padding-top: 4px; }
+  .metric-row { display: flex; align-items: center; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(36,40,48,0.5); }
+  .metric-row:last-child { border-bottom: none; }
+  .metric-row .mk { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  .metric-row .mv { font-family: 'Bebas Neue', sans-serif; font-size: 18px; line-height: 1; color: var(--text); }
+  .metric-row .mv.green { color: #4ade80; }
+  .metric-row .mv.gold { color: var(--accent); }
+
+  /* Section gap */
+  .section-gap { height: 16px; }
+
+  /* ── FOOTER ── */
+  footer { position: relative; z-index: 5; border-top: 1px solid var(--border); padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; font-size: 10px; color: var(--muted); font-family: 'DM Mono', monospace; letter-spacing: 0.8px; gap: 24px; flex-wrap: nowrap; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-band { animation: fadeUp 0.5s ease both; }
+  .image-grid, .image-grid-3 { animation: fadeUp 0.6s ease both; animation-delay: 0.1s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    header { padding: 16px 20px; flex-wrap: wrap; gap: 10px; }
+    .hero-band { padding: 32px 20px; grid-template-columns: 1fr; gap: 20px; }
+    .hero-stats { flex-direction: row; align-items: center; justify-content: flex-start; flex-wrap: wrap; gap: 16px; }
+    .address-main { font-size: clamp(28px,8vw,48px); }
+    .stats-banner { grid-template-columns: repeat(3,1fr); }
+    .stats-item { padding: 14px 16px; }
+    main { padding: 24px 20px 40px; }
+    .image-grid { grid-template-columns: 1fr; }
+    .image-grid-3 { grid-template-columns: 1fr 1fr; }
+    .img-card.wide { grid-column: 1; aspect-ratio: 16/9; }
+    .info-grid { grid-template-columns: 1fr !important; }
+    .info-card.span2, .info-card.span3 { grid-column: span 1 !important; }
+    .feature-cols { grid-template-columns: 1fr; }
+    .contact-strip { grid-template-columns: 1fr; gap: 24px; }
+    .contact-links { flex-direction: column; gap: 16px; }
+    .contact-link { padding: 0; border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+    .cta-btn { width: 100%; text-align: center; }
+    .hbu-full-width { padding: 0 20px 40px; }
+    .hbu-title { font-size: 28px; }
+    footer { flex-direction: column; text-align: center; gap: 8px; padding: 20px; }
+    .site-plan-grid { grid-template-columns: 1fr; }
+    .dual-traffic { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .stats-banner { grid-template-columns: 1fr 1fr; }
+    .image-grid-3 { grid-template-columns: 1fr; }
+    .image-grid { grid-template-columns: 1fr; }
+    main { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Loading Bar -->
+<div class="media-loading-bar"><div class="mlb-fill" id="loadingBar"></div></div>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <div class="logo-block">
+    <div class="logo-pill">PICOR</div>
+    <div class="logo-name">Cushman &amp; Wakefield Alliance</div>
+  </div>
+  <div class="header-badge">
+    <div class="pulse-dot"></div>
+    FOR SALE OR LEASE
+  </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<div class="hero-band" style="max-width:1400px;margin:0 auto;">
+  <div>
+    <div class="address-super">
+      Tucson, Arizona &nbsp;·&nbsp; Hard Corner
+      <span style="background:rgba(59,143,212,0.15);color:var(--accent);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;padding:3px 8px;border-radius:3px;border:1px solid rgba(59,143,212,0.3);">REDEVELOPMENT</span>
+    </div>
+    <div class="address-main">5050 &amp; 5056 E<br><span>Speedway</span> Blvd</div>
+    <div class="address-sub">Tucson, AZ 85712 &nbsp;·&nbsp; Hard Corner — Speedway &amp; Rosemont Blvd</div>
+    <div class="tag-row">
+      <span class="tag tag-sale">For Sale — $975,000</span>
+      <span class="tag tag-lease">For Lease</span>
+      <span class="tag tag-zone">C-2 Zoning</span>
+      <span class="tag tag-corner">Hard Corner · Signalized</span>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-chip"><div class="val">0.69 AC</div><div class="lbl">Total Land</div></div>
+    <div class="divider-h"></div>
+    <div class="stat-chip"><div class="val">30,252</div><div class="lbl">Square Feet</div></div>
+    <div class="divider-h"></div>
+    <div class="stat-chip"><div class="val">36,479</div><div class="lbl">Speedway VPD</div></div>
+  </div>
+</div>
+
+<!-- ══ STATS BANNER ══ -->
+<div class="stats-banner" style="max-width:1400px;margin:0 auto;">
+  <div class="stats-item">
+    <div class="si-lbl">Land Area</div>
+    <div class="si-val">0.69 AC</div>
+    <div class="si-sub">30,252 Square Feet</div>
+  </div>
+  <div class="stats-item">
+    <div class="si-lbl">Speedway Traffic</div>
+    <div class="si-val">36,479</div>
+    <div class="si-sub">Vehicles Per Day (2024)</div>
+  </div>
+  <div class="stats-item">
+    <div class="si-lbl">Rosemont Traffic</div>
+    <div class="si-val">7,056</div>
+    <div class="si-sub">Vehicles Per Day (2024)</div>
+  </div>
+  <div class="stats-item">
+    <div class="si-lbl">Zoning</div>
+    <div class="si-val" style="font-size:22px;">C-2</div>
+    <div class="si-sub">Commercial — Broad Use</div>
+  </div>
+  <div class="stats-item" style="background:rgba(59,143,212,0.06);">
+    <div class="si-lbl">Sale Price</div>
+    <div class="si-val" style="color:var(--accent);font-size:22px;">$975K</div>
+    <div class="si-sub">Or Lease</div>
+  </div>
+</div>
+
+<!-- ══ MAIN ══ -->
+<main>
+
+  <!-- ════════════════════════════════
+       SECTION 1 — PROPERTY PHOTOGRAPHY
+       ════════════════════════════════ -->
+  <div class="section-label">Property Photography</div>
+  <div class="image-grid">
+
+    <div class="img-card wide" onclick="openLightbox(0,'original')">
+      <img class="real-img" src="https://npmfudvtmltkincqyxny.supabase.co/storage/v1/object/public/property-media/5050-e-speedway/ORIGINALS/1.png" alt="Aerial Overview">
+      <div class="img-label-badge">AERIAL · 01 — OVERVIEW</div>
+      <div class="zoom-hint">⤢ FULLSCREEN</div>
+    </div>
+
+    <div class="img-card" onclick="openLightbox(1,'original')">
+      <img class="real-img" src="https://npmfudvtmltkincqyxny.supabase.co/storage/v1/object/public/property-media/5050-e-speedway/ORIGINALS/2.png" alt="Lot Overhead">
+      <div class="img-label-badge">LOT · 02</div>
+      <div class="zoom-hint">⤢ FULLSCREEN</div>
+    </div>
+
+    <div class="img-card" onclick="openLightbox(2,'original')">
+      <img class="real-img" src="https://npmfudvtmltkincqyxny.supabase.co/storage/v1/object/public/property-media/5050-e-speedway/ORIGINALS/3.png" alt="Intersection View">
+      <div class="img-label-badge">INTERSECTION · 03</div>
+      <div class="zoom-hint">⤢ FULLSCREEN</div>
+    </div>
+
+  </div><!-- /original image-grid -->
+
+  <!-- ════════════════════════════════
+       SECTION 2B — SITE PLAN CONCEPTS
+       ════════════════════════════════ -->
+  <div class="section-gap"></div>
+  <div class="section-label" style="color:var(--purple);">Site Plan Concepts</div>
+  <div class="image-grid-3" style="margin-bottom:40px;">
+    <div class="img-card" onclick="openLightbox(0,'concept')">
+      <img class="real-img" src="https://npmfudvtmltkincqyxny.supabase.co/storage/v1/object/public/property-media/5050-e-speedway/SITE%20PLAN%20CONCEPT/1.png" alt="Site Plan Concept 1">
+      <div class="img-label-badge" style="border-color:rgba(167,139,250,0.4);color:var(--purple);">CONCEPT · 01</div>
+      <div class="zoom-hint">⤢ FULLSCREEN</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(1,'concept')">
+      <img class="real-img" src="https://npmfudvtmltkincqyxny.supabase.co/storage/v1/object/public/property-media/5050-e-speedway/SITE%20PLAN%20CONCEPT/2.png" alt="Site Plan Concept 2">
+      <div class="img-label-badge" style="border-color:rgba(167,139,250,0.4);color:var(--purple);">CONCEPT · 02</div>
+      <div class="zoom-hint">⤢ FULLSCREEN</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(2,'concept')">
+      <img class="real-img" src="https://npmfudvtmltkincqyxny.supabase.co/storage/v1/object/public/property-media/5050-e-speedway/SITE%20PLAN%20CONCEPT/3.png" alt="Site Plan Concept 3">
+      <div class="img-label-badge" style="border-color:rgba(167,139,250,0.4);color:var(--purple);">CONCEPT · 03</div>
+      <div class="zoom-hint">⤢ FULLSCREEN</div>
+    </div>
+  </div>
+
+  <div class="section-gap"></div>
+  <div class="section-label" style="color:var(--blue);">Existing Architectural Site Plans</div>
+  <div class="site-plan-grid">
+    <div class="site-plan-card" style="cursor:pointer;" onclick="openLightbox(0,'siteplan')">
+      <div class="sp-header">
+        <div class="sp-title">Option 1 — Auto Repair</div>
+        <div class="sp-size">8 BAY · 4,830 SF</div>
+      </div>
+      <div style="position:relative;aspect-ratio:3/2;overflow:hidden;">
+        <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" src="https://npmfudvtmltkincqyxny.supabase.co/storage/v1/object/public/property-media/5050-e-speedway/SITE%20PLAN%20REALITY/1.png" alt="Site Plan Option 1">
+        <div class="zoom-hint" style="opacity:1;bottom:10px;right:10px;">⤢ FULLSCREEN</div>
+      </div>
+    </div>
+    <div class="site-plan-card" style="cursor:pointer;" onclick="openLightbox(1,'siteplan')">
+      <div class="sp-header">
+        <div class="sp-title">Option 2 — Food Service</div>
+        <div class="sp-size">DRIVE-THRU · 2,250 SF</div>
+      </div>
+      <div style="position:relative;aspect-ratio:3/2;overflow:hidden;">
+        <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" src="https://npmfudvtmltkincqyxny.supabase.co/storage/v1/object/public/property-media/5050-e-speedway/SITE%20PLAN%20REALITY/2.png" alt="Site Plan Option 2">
+        <div class="zoom-hint" style="opacity:1;bottom:10px;right:10px;">⤢ FULLSCREEN</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SECTION 2C — AERIAL ANGLES
+       ════════════════════════════════ -->
+  <div class="section-gap"></div>
+  <div class="section-label" style="color:var(--orange);">Aerial Views</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px;">
+    <div class="img-card" style="aspect-ratio:16/9;" onclick="openLightbox(0,'aerial')">
+      <img class="real-img" src="https://npmfudvtmltkincqyxny.supabase.co/storage/v1/object/public/property-media/5050-e-speedway/AERIAL-ANGLE/1.png" alt="Aerial Angle 1">
+      <div class="img-label-badge" style="border-color:rgba(245,158,11,0.4);color:var(--orange);">AERIAL · 01</div>
+      <div class="zoom-hint">⤢ FULLSCREEN</div>
+    </div>
+    <div class="img-card" style="aspect-ratio:16/9;" onclick="openLightbox(1,'aerial')">
+      <img class="real-img" src="https://npmfudvtmltkincqyxny.supabase.co/storage/v1/object/public/property-media/5050-e-speedway/AERIAL-ANGLE/2.png" alt="Aerial Angle 2">
+      <div class="img-label-badge" style="border-color:rgba(245,158,11,0.4);color:var(--orange);">AERIAL · 02</div>
+      <div class="zoom-hint">⤢ FULLSCREEN</div>
+    </div>
+    <div class="img-card" style="aspect-ratio:16/9;" onclick="openLightbox(2,'aerial')">
+      <img class="real-img" src="https://npmfudvtmltkincqyxny.supabase.co/storage/v1/object/public/property-media/5050-e-speedway/AERIAL-ANGLE/3.png" alt="Aerial Angle 3">
+      <div class="img-label-badge" style="border-color:rgba(245,158,11,0.4);color:var(--orange);">AERIAL · 03</div>
+      <div class="zoom-hint">⤢ FULLSCREEN</div>
+    </div>
+    <div class="img-card" style="aspect-ratio:16/9;" onclick="openLightbox(3,'aerial')">
+      <img class="real-img" src="https://npmfudvtmltkincqyxny.supabase.co/storage/v1/object/public/property-media/5050-e-speedway/AERIAL-ANGLE/4.png" alt="Aerial Angle 4">
+      <div class="img-label-badge" style="border-color:rgba(245,158,11,0.4);color:var(--orange);">AERIAL · 04</div>
+      <div class="zoom-hint">⤢ FULLSCREEN</div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       INFO GRID
+       ════════════════════════════════ -->
+  <div class="info-grid">
+
+    <!-- Traffic -->
+    <div class="info-card">
+      <div class="ic-title">Traffic Counts (2024)</div>
+      <div class="dual-traffic">
+        <div class="dt-item">
+          <div class="dt-rd">Speedway</div>
+          <div class="dt-num">36,479</div>
+          <div class="dt-lbl">VPD</div>
+        </div>
+        <div class="dt-item">
+          <div class="dt-rd">Rosemont</div>
+          <div class="dt-num">7,056</div>
+          <div class="dt-lbl">VPD</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--dim);text-align:center;">Combined dual-street hard corner exposure</div>
+    </div>
+
+    <!-- Property Details -->
+    <div class="info-card">
+      <div class="ic-title">Property Details</div>
+      <div class="detail-table">
+        <div class="detail-row"><span class="dr-k">Address</span><span class="dr-v">5050 &amp; 5056 E Speedway Blvd</span></div>
+        <div class="detail-row"><span class="dr-k">City / State</span><span class="dr-v">Tucson, AZ 85712</span></div>
+        <div class="detail-row"><span class="dr-k">Land Area</span><span class="dr-v">0.69 AC / 30,252 SF</span></div>
+        <div class="detail-row"><span class="dr-k">Zoning</span><span class="dr-v">C-2, City of Tucson</span></div>
+        <div class="detail-row"><span class="dr-k">Sale Price</span><span class="dr-v highlight">$975,000</span></div>
+        <div class="detail-row"><span class="dr-k">Lease Rate</span><span class="dr-v">Contact Agent</span></div>
+        <div class="detail-row"><span class="dr-k">Corner Type</span><span class="dr-v">Hard Corner — Signalized</span></div>
+        <div class="detail-row"><span class="dr-k">APN</span><span class="dr-v">127-040-530</span></div>
+      </div>
+    </div>
+
+    <!-- Demographics -->
+    <div class="info-card">
+      <div class="ic-title">Demographics — 3 Mile Ring</div>
+      <div class="mkt-grid">
+        <div class="mkt-item"><div class="mi-val">116,826+</div><div class="mi-lbl">Total Residents</div></div>
+        <div class="mkt-item"><div class="mi-val">$79,830</div><div class="mi-lbl">Median HH Income</div></div>
+        <div class="mkt-item"><div class="mi-val">5%+</div><div class="mi-lbl">Pop Growth Projected</div></div>
+        <div class="mkt-item"><div class="mi-val">1.08M</div><div class="mi-lbl">Tucson MSA Pop</div></div>
+        <div class="mkt-item"><div class="mi-val">4.1%</div><div class="mi-lbl">Unemployment Rate</div></div>
+        <div class="mkt-item"><div class="mi-val">456,600</div><div class="mi-lbl">Total Households</div></div>
+        <div class="mkt-item"><div class="mi-val">$74,400</div><div class="mi-lbl">MSA Median HH Income</div></div>
+        <div class="mkt-item"><div class="mi-val">35%</div><div class="mi-lbl">College Education</div></div>
+        <div class="mkt-item"><div class="mi-val">1.1%</div><div class="mi-lbl">MSA Pop Growth Rate</div></div>
+      </div>
+    </div>
+
+    <!-- Key Features -->
+    <div class="info-card span2">
+      <div class="ic-title">Key Features</div>
+      <div class="feature-cols">
+        <div class="feature-item"><div class="fi-dot"></div>Prime hard corner — Speedway &amp; Rosemont</div>
+        <div class="feature-item"><div class="fi-dot"></div>116,826+ residents within 3 miles</div>
+        <div class="feature-item"><div class="fi-dot"></div>Excellent visibility and dual-street access</div>
+        <div class="feature-item"><div class="fi-dot"></div>5%+ projected population &amp; household growth</div>
+        <div class="feature-item"><div class="fi-dot"></div>Architectural site plans already completed</div>
+        <div class="feature-item"><div class="fi-dot"></div>Very walkable — dense residential &amp; retail mix</div>
+        <div class="feature-item"><div class="fi-dot"></div>8-bay auto repair OR food service drive-thru ready</div>
+        <div class="feature-item"><div class="fi-dot"></div>$79,830+ median household income (3-mile)</div>
+      </div>
+    </div>
+
+    <!-- Surrounding Tenants -->
+    <div class="info-card span3">
+      <div class="ic-title">Surrounding Tenants</div>
+      <div class="tenant-row">
+        <span class="tenant-pill">Trader Joe's</span>
+        <span class="tenant-pill">CVS Pharmacy</span>
+        <span class="tenant-pill">Chase Bank</span>
+        <span class="tenant-pill">PNC Bank</span>
+        <span class="tenant-pill">Ace Hardware</span>
+        <span class="tenant-pill">Big 5 Sporting</span>
+        <span class="tenant-pill">AutoZone</span>
+        <span class="tenant-pill">McDonald's</span>
+        <span class="tenant-pill">Walgreens</span>
+        <span class="tenant-pill">Petco</span>
+        <span class="tenant-pill">At Home</span>
+        <span class="tenant-pill">Hobby Lobby</span>
+        <span class="tenant-pill">World Market</span>
+        <span class="tenant-pill">Bruegger's</span>
+        <span class="tenant-pill">Panera Bread</span>
+        <span class="tenant-pill">Carondelet St. Joseph's Hospital</span>
+        <span class="tenant-pill">Wilmot Plaza</span>
+        <span class="tenant-pill">Pima Medical Institute</span>
+        <span class="tenant-pill">Goodyear</span>
+        <span class="tenant-pill">O'Reilly Auto Parts</span>
+      </div>
+    </div>
+
+    <!-- Contact — full width -->
+    <div class="info-card span3" style="background:linear-gradient(90deg,rgba(59,143,212,0.06) 0%,var(--card) 100%);border-color:rgba(59,143,212,0.25);">
+      <div class="ic-title">Contact</div>
+      <div class="contact-strip">
+        <div class="agent-block">
+          <div class="agent-avatar">KN</div>
+          <div class="agent-bio">
+            <div class="agent-name">Kameron Norwood</div>
+            <div class="agent-title">Owner/Agent · Investment Sales &amp; Leasing<br>PICOR | Cushman &amp; Wakefield</div>
+          </div>
+        </div>
+        <div class="contact-links">
+          <a class="contact-link" href="tel:+15203608510">
+            <span class="cl-label">Phone</span>
+            <span class="cl-val">+1 520 360 8510</span>
+          </a>
+          <a class="contact-link" href="mailto:knorwood@picor.com">
+            <span class="cl-label">Email</span>
+            <span class="cl-val">knorwood@picor.com</span>
+          </a>
+          <a class="contact-link" href="https://picor.com" target="_blank">
+            <span class="cl-label">Website</span>
+            <span class="cl-val">picor.com</span>
+          </a>
+        </div>
+        <a class="cta-btn" href="mailto:knorwood@picor.com?subject=5050 E Speedway Blvd Inquiry">Book a Call / Zoom</a>
+      </div>
+    </div>
+
+  </div><!-- /info-grid -->
+
+</main>
+
+<!-- ══ HBU — AI RENDERING CONCEPTS ══ -->
+<section class="hbu-full-width" style="padding-top:40px;">
+  <div class="hbu-full-inner">
+    <div class="section-label">AI Highest &amp; Best Use — Rendering Concepts</div>
+    <div class="hbu-grid">
+
+      <!-- Option A: Food Service Drive-Thru -->
+      <div class="hbu-card top-pick">
+        <div class="hbu-info">
+          <div class="hbu-number">HBU · 01 OF 03 — OPTION A</div>
+          <div class="hbu-title">Fast Casual<br>Drive-Thru Pad</div>
+          <div class="hbu-desc">Hard corner with dual street exposure is a textbook drive-thru site. 2,250 SF food service building with dedicated drive-thru lane. Coffee, fast casual, or QSR. Highest foot traffic capture of any option.</div>
+          <div class="hbu-metrics">
+            <div class="metric-row"><span class="mk">Zoning Fit</span><span class="mv green">C-2 ✓ Ideal</span></div>
+            <div class="metric-row"><span class="mk">Site Plan</span><span class="mv green">Already Drawn</span></div>
+            <div class="metric-row"><span class="mk">Build Size</span><span class="mv">2,250 SF</span></div>
+            <div class="metric-row"><span class="mk">ROI Potential</span><span class="mv gold">★★★★★</span></div>
+          </div>
+        </div>
+        <div class="hbu-render" onclick="openLightbox(0,'hbu')">
+          <div class="img-placeholder">
+            <div class="ph-icon" style="color:var(--accent);">⬡</div>
+            <div class="ph-label">FOOD SERVICE DRIVE-THRU<br>AI Rendering</div>
+            <div class="ph-tag">RENDERING 01</div>
+          </div>
+          <div class="img-label-badge accent">AI RENDERING · DRIVE-THRU</div>
+          <div class="zoom-hint">⤢ FULLSCREEN</div>
+        </div>
+      </div>
+
+      <!-- Option B: Automotive Repair -->
+      <div class="hbu-card">
+        <div class="hbu-info">
+          <div class="hbu-number">HBU · 02 OF 03 — OPTION B</div>
+          <div class="hbu-title">8-Bay Automotive<br>Repair Facility</div>
+          <div class="hbu-desc">4,830 SF automotive repair facility with 8 service bays. Strong demand corridor — Goodyear and O'Reilly nearby but no independent service center on this block. NNN lease potential is excellent.</div>
+          <div class="hbu-metrics">
+            <div class="metric-row"><span class="mk">Zoning Fit</span><span class="mv green">C-2 ✓ Permitted</span></div>
+            <div class="metric-row"><span class="mk">Site Plan</span><span class="mv green">Already Drawn</span></div>
+            <div class="metric-row"><span class="mk">Build Size</span><span class="mv">4,830 SF</span></div>
+            <div class="metric-row"><span class="mk">ROI Potential</span><span class="mv gold">★★★★☆</span></div>
+          </div>
+        </div>
+        <div class="hbu-render" onclick="openLightbox(1,'hbu')">
+          <div class="img-placeholder">
+            <div class="ph-icon">⬡</div>
+            <div class="ph-label">AUTOMOTIVE REPAIR<br>AI Rendering</div>
+            <div class="ph-tag">RENDERING 02</div>
+          </div>
+          <div class="img-label-badge" style="border-color:rgba(224,92,58,0.4);color:var(--red);">AI RENDERING · AUTOMOTIVE</div>
+          <div class="zoom-hint">⤢ FULLSCREEN</div>
+        </div>
+      </div>
+
+      <!-- Option C: Neighborhood Retail -->
+      <div class="hbu-card">
+        <div class="hbu-info">
+          <div class="hbu-number">HBU · 03 OF 03 — OPTION C</div>
+          <div class="hbu-title">Neighborhood Retail<br>/ Pharmacy Pad</div>
+          <div class="hbu-desc">Dense residential surroundings (116K+ residents within 3 miles) support a neighborhood convenience retail or pharmacy pad. Very walkable location. Corner visibility maximizes signage exposure.</div>
+          <div class="hbu-metrics">
+            <div class="metric-row"><span class="mk">Zoning Fit</span><span class="mv green">C-2 ✓ Permitted</span></div>
+            <div class="metric-row"><span class="mk">Demo Support</span><span class="mv green">116K Residents</span></div>
+            <div class="metric-row"><span class="mk">Build Size</span><span class="mv">~3,000–5,000 SF</span></div>
+            <div class="metric-row"><span class="mk">ROI Potential</span><span class="mv gold">★★★☆☆</span></div>
+          </div>
+        </div>
+        <div class="hbu-render" onclick="openLightbox(2,'hbu')">
+          <div class="img-placeholder">
+            <div class="ph-icon">⬡</div>
+            <div class="ph-label">NEIGHBORHOOD RETAIL<br>AI Rendering</div>
+            <div class="ph-tag">RENDERING 03</div>
+          </div>
+          <div class="img-label-badge" style="border-color:rgba(167,139,250,0.4);color:var(--purple);">AI RENDERING · RETAIL</div>
+          <div class="zoom-hint">⤢ FULLSCREEN</div>
+        </div>
+      </div>
+
+    </div><!-- /hbu-grid -->
+  </div>
+</section>
+
+<!-- ══ TUCSON MARKET OVERVIEW ══ -->
+<section style="position:relative;z-index:5;background:var(--surface);border-top:1px solid var(--border);padding:48px 40px 56px;">
+  <div style="max-width:1400px;margin:0 auto;">
+    <div class="section-label" style="color:var(--blue);">Tucson Market Overview</div>
+
+    <!-- MSA Stats Row -->
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:32px;">
+      <div style="padding:20px 18px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:3px;">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">MSA Population</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--accent2);line-height:1;">1.08M</div>
+      </div>
+      <div style="padding:20px 18px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:3px;">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">Pop Growth Rate</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--accent2);line-height:1;">1.1%</div>
+      </div>
+      <div style="padding:20px 18px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:3px;">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">Total Households</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--accent2);line-height:1;">456,600</div>
+      </div>
+      <div style="padding:20px 18px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:3px;">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">Median HH Income</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--accent2);line-height:1;">$74,400</div>
+      </div>
+      <div style="padding:20px 18px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:3px;">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">Unemployment</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--accent2);line-height:1;">4.1%</div>
+      </div>
+      <div style="padding:20px 18px;display:flex;flex-direction:column;gap:3px;">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">College Education</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--accent2);line-height:1;">35%</div>
+      </div>
+    </div>
+
+    <!-- U of A + Employers + Industry -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+
+      <!-- University of Arizona -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px 28px;">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:14px;">University of Arizona</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--accent2);line-height:1;margin-bottom:4px;">56,544</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;">Total Enrollment, 2025</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="font-size:11px;color:var(--dim);">#2 Management Information Systems</div>
+          <div style="font-size:11px;color:var(--dim);">#8 Space Science</div>
+          <div style="font-size:11px;color:var(--dim);">#27 Best Business Schools</div>
+          <div style="font-size:11px;color:var(--dim);">#47 Medicine</div>
+          <div style="font-size:11px;color:var(--dim);">#52 Top Public School</div>
+          <div style="font-size:11px;color:var(--dim);">#54 Education</div>
+          <div style="font-size:11px;color:var(--dim);">#69 Undergrad Engineering Programs</div>
+          <div style="font-size:11px;color:var(--dim);">#70 Best Colleges for Veterans</div>
+          <div style="font-size:11px;color:var(--dim);">#115 Global University</div>
+        </div>
+      </div>
+
+      <!-- Largest Employers -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px 28px;">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:20px;">Largest Employers</div>
+        <div style="display:flex;flex-direction:column;gap:0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);">
+            <span style="font-size:12px;color:var(--text);font-weight:500;">University of Arizona</span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--accent2);">16,076</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);">
+            <span style="font-size:12px;color:var(--text);font-weight:500;">Raytheon Missile Systems</span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--accent2);">13,000</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);">
+            <span style="font-size:12px;color:var(--text);font-weight:500;">Davis-Monthan AFB</span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--accent2);">11,000</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;">
+            <span style="font-size:12px;color:var(--text);font-weight:500;">State of Arizona</span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--accent2);">8,580</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Industry Arrivals -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px 28px;">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:20px;">Recent Industry Arrivals &amp; Expansions</div>
+        <div style="display:flex;flex-direction:column;gap:0;">
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);">
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(59,143,212,0.15);border:1px solid rgba(59,143,212,0.3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);flex-shrink:0;">1</div>
+            <span style="font-size:12px;color:var(--text);font-weight:500;">Amazon</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);">
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(59,143,212,0.15);border:1px solid rgba(59,143,212,0.3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);flex-shrink:0;">2</div>
+            <span style="font-size:12px;color:var(--text);font-weight:500;">Caterpillar Surface Mining &amp; Tech</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);">
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(59,143,212,0.15);border:1px solid rgba(59,143,212,0.3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);flex-shrink:0;">3</div>
+            <span style="font-size:12px;color:var(--text);font-weight:500;">Hexagon Mining</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);">
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(59,143,212,0.15);border:1px solid rgba(59,143,212,0.3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);flex-shrink:0;">4</div>
+            <span style="font-size:12px;color:var(--text);font-weight:500;">Becton Dickinson</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 0;">
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(59,143,212,0.15);border:1px solid rgba(59,143,212,0.3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);flex-shrink:0;">5</div>
+            <span style="font-size:12px;color:var(--text);font-weight:500;">American Battery Factory</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /3-col grid -->
+    <div style="margin-top:14px;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:0.8px;">Sources: BLS, BEA, Federal Reserve, Moody's Analytics, arizona.edu, suncorridorinc.com, US News &amp; Report, Sites USA — Cushman &amp; Wakefield | PICOR 08/13/2025</div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <span>PICOR Commercial Real Estate Services · Cushman &amp; Wakefield Alliance · 5151 E Broadway Suite 115, Tucson AZ 85711</span>
+  <span style="white-space:nowrap;">© 2025 Cushman &amp; Wakefield · All information subject to change</span>
+</footer>
+
+<!-- ══ LIGHTBOXES ══ -->
+
+<!-- Original Photos Lightbox -->
+<div class="lightbox" id="lightbox-original" onclick="closeLightboxOutside(event,'original')">
+  <button class="lightbox-close" onclick="closeLightbox('original')">✕</button>
+  <button class="lightbox-prev" onclick="lightboxNav(-1,'original')">‹</button>
+  <div class="lightbox-inner">
+    <img id="lightbox-img-original" src="" alt="">
+  </div>
+  <button class="lightbox-next" onclick="lightboxNav(1,'original')">›</button>
+  <div class="lightbox-caption" id="lightbox-caption-original"></div>
+  <div class="lightbox-counter" id="lightbox-counter-original"></div>
+</div>
+
+<!-- Site Plan Lightbox -->
+<div class="lightbox" id="lightbox-siteplan" onclick="closeLightboxOutside(event,'siteplan')">
+  <button class="lightbox-close" onclick="closeLightbox('siteplan')">✕</button>
+  <button class="lightbox-prev" onclick="lightboxNav(-1,'siteplan')">‹</button>
+  <div class="lightbox-inner">
+    <img id="lightbox-img-siteplan" src="" alt="">
+  </div>
+  <button class="lightbox-next" onclick="lightboxNav(1,'siteplan')">›</button>
+  <div class="lightbox-caption" id="lightbox-caption-siteplan"></div>
+  <div class="lightbox-counter" id="lightbox-counter-siteplan"></div>
+</div>
+
+<!-- Concept Lightbox -->
+<div class="lightbox" id="lightbox-concept" onclick="closeLightboxOutside(event,'concept')">
+  <button class="lightbox-close" onclick="closeLightbox('concept')">✕</button>
+  <button class="lightbox-prev" onclick="lightboxNav(-1,'concept')">‹</button>
+  <div class="lightbox-inner">
+    <img id="lightbox-img-concept" src="" alt="">
+  </div>
+  <button class="lightbox-next" onclick="lightboxNav(1,'concept')">›</button>
+  <div class="lightbox-caption" id="lightbox-caption-concept"></div>
+  <div class="lightbox-counter" id="lightbox-counter-concept"></div>
+</div>
+
+<!-- Aerial Lightbox -->
+<div class="lightbox" id="lightbox-aerial" onclick="closeLightboxOutside(event,'aerial')">
+  <button class="lightbox-close" onclick="closeLightbox('aerial')">✕</button>
+  <button class="lightbox-prev" onclick="lightboxNav(-1,'aerial')">‹</button>
+  <div class="lightbox-inner">
+    <img id="lightbox-img-aerial" src="" alt="">
+  </div>
+  <button class="lightbox-next" onclick="lightboxNav(1,'aerial')">›</button>
+  <div class="lightbox-caption" id="lightbox-caption-aerial"></div>
+  <div class="lightbox-counter" id="lightbox-counter-aerial"></div>
+</div>
+
+<!-- HBU Lightbox -->
+<div class="lightbox" id="lightbox-hbu" onclick="closeLightboxOutside(event,'hbu')">
+  <button class="lightbox-close" onclick="closeLightbox('hbu')">✕</button>
+  <button class="lightbox-prev" onclick="lightboxNav(-1,'hbu')">‹</button>
+  <div class="lightbox-inner">
+    <img id="lightbox-img-hbu" src="" alt="">
+  </div>
+  <button class="lightbox-next" onclick="lightboxNav(1,'hbu')">›</button>
+  <div class="lightbox-caption" id="lightbox-caption-hbu"></div>
+  <div class="lightbox-counter" id="lightbox-counter-hbu"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+//  IMAGE SETS
+// ═══════════════════════════════════════════
+
+const BASE = 'https://npmfudvtmltkincqyxny.supabase.co/storage/v1/object/public/property-media/5050-e-speedway';
+
+const SETS = {
+  original: {
+    label: 'PROPERTY PHOTOGRAPHY',
+    imgs: [
+      { src: BASE + '/ORIGINALS/1.png', caption: 'AERIAL · 01 — OVERVIEW' },
+      { src: BASE + '/ORIGINALS/2.png', caption: 'LOT · 02' },
+      { src: BASE + '/ORIGINALS/3.png', caption: 'INTERSECTION · 03' },
+    ]
+  },
+  siteplan: {
+    label: 'EXISTING ARCHITECTURAL SITE PLANS',
+    imgs: [
+      { src: BASE + '/SITE%20PLAN%20REALITY/1.png', caption: 'SITE PLAN · 01 — OPTION 1 · AUTO REPAIR · 8 BAY · 4,830 SF' },
+      { src: BASE + '/SITE%20PLAN%20REALITY/2.png', caption: 'SITE PLAN · 02 — OPTION 2 · FOOD SERVICE · DRIVE-THRU · 2,250 SF' },
+    ]
+  },
+  concept: {
+    label: 'SITE PLAN CONCEPTS',
+    imgs: [
+      { src: BASE + '/SITE%20PLAN%20CONCEPT/1.png', caption: 'CONCEPT · 01' },
+      { src: BASE + '/SITE%20PLAN%20CONCEPT/2.png', caption: 'CONCEPT · 02' },
+      { src: BASE + '/SITE%20PLAN%20CONCEPT/3.png', caption: 'CONCEPT · 03' },
+    ]
+  },
+  aerial: {
+    label: 'AERIAL VIEWS',
+    imgs: [
+      { src: BASE + '/AERIAL-ANGLE/1.png', caption: 'AERIAL · 01' },
+      { src: BASE + '/AERIAL-ANGLE/2.png', caption: 'AERIAL · 02' },
+      { src: BASE + '/AERIAL-ANGLE/3.png', caption: 'AERIAL · 03' },
+      { src: BASE + '/AERIAL-ANGLE/4.png', caption: 'AERIAL · 04' },
+    ]
+  },
+  hbu: {
+    label: 'AI RENDERING CONCEPTS',
+    imgs: [
+      { src: BASE + '/hbu/drive-thru.png',   caption: 'HBU · 01 · FAST CASUAL DRIVE-THRU PAD' },
+      { src: BASE + '/hbu/automotive.png',    caption: 'HBU · 02 · 8-BAY AUTOMOTIVE REPAIR' },
+      { src: BASE + '/hbu/retail.png',        caption: 'HBU · 03 · NEIGHBORHOOD RETAIL / PHARMACY' },
+    ]
+  },
+};
+
+const lbState = { original: 0, hbu: 0, siteplan: 0, concept: 0, aerial: 0 };
+
+function openLightbox(i, set) {
+  const imgs = SETS[set].imgs;
+  lbState[set] = i;
+  document.getElementById('lightbox-img-' + set).src = imgs[i].src;
+  document.getElementById('lightbox-caption-' + set).textContent = imgs[i].caption;
+  document.getElementById('lightbox-counter-' + set).textContent = (i + 1) + ' / ' + imgs.length;
+  document.getElementById('lightbox-' + set).classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(set) {
+  document.getElementById('lightbox-' + set).classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function closeLightboxOutside(e, set) {
+  if (e.target === document.getElementById('lightbox-' + set)) closeLightbox(set);
+}
+
+function lightboxNav(dir, set) {
+  const imgs = SETS[set].imgs;
+  const next = (lbState[set] + dir + imgs.length) % imgs.length;
+  openLightbox(next, set);
+}
+
+document.addEventListener('keydown', e => {
+  ['original','hbu','siteplan','concept','aerial'].forEach(set => {
+    const lb = document.getElementById('lightbox-' + set);
+    if (lb && lb.classList.contains('active')) {
+      if (e.key === 'Escape') closeLightbox(set);
+      if (e.key === 'ArrowRight') lightboxNav(1, set);
+      if (e.key === 'ArrowLeft')  lightboxNav(-1, set);
+    }
+  });
+});
+
+// Animate loading bar on init
+window.addEventListener('DOMContentLoaded', () => {
+  const bar = document.getElementById('loadingBar');
+  if (bar) {
+    bar.style.width = '100%';
+    setTimeout(() => { bar.style.opacity = '0'; }, 800);
+  }
+});
+</script>
+</body>
+</html>
